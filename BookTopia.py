@@ -77,7 +77,7 @@ def Get_Data(start,end):
 
         params = {
             'keywords': isbn,
-            'productType': '917504',
+            'productType': '917505',
             'pn': '1',
         }
 
@@ -93,7 +93,7 @@ def Get_Data(start,end):
                 try:
                     url_slug=js1['pageProps']['__N_REDIRECT']
                 except:
-                    print('NOT FOUND')
+                    # print('NOT FOUND')
                     Input_.update_one({'ISBN13': isbn}, {'$set': {'status': 'Not Found'}})
                     continue
 
@@ -176,7 +176,8 @@ def Get_Data(start,end):
                     Input_.update_one({'ISBN13':isbn},{'$set':{'status':'Done'}})
                     print("DATA INSERTED",count)
                 except Exception as e:
-                    print(e)
+                    # print(e)
+                    Input_.update_one({'ISBN13': isbn}, {'$set': {'status': 'Done'}})
                     print(isbn)
             except Exception as e:
                 print(e)
@@ -189,7 +190,7 @@ if __name__ == '__main__':
     run_count = 0
     while data != 0 and run_count < 100:
         total_count = data
-        variable_count = total_count // 1          # DEFINE HOW MANY THREADS
+        variable_count = total_count // 1        # DEFINE HOW MANY THREADS
         if variable_count == 0:
             variable_count = total_count * 2
         count = 1
